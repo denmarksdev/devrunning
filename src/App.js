@@ -1,52 +1,37 @@
 import React, { Component } from 'react';
 
 import './App.css';
-import axios from 'axios';
-import jwtDecode from 'jwt-decode';
 
 import store from './redux'
 import { Provider } from 'react-redux'
+
+import {
+  Route,
+  BrowserRouter as Router
+} from 'react-router-dom'
+
 import Header from './Header';
+import Home from './screens/Home'
+import Admin from './screens/Admin'
+import Restrito from './screens/Restrito';
+import Login from './screens/Login'
 
-
-
-const STORAGE_TOKEN = 'token';
-const BASE_URL = 'http://localhost:3001/users';
 class App extends Component {
-
-  /*
-  async componentDidMount() {
-    let token = localStorage.getItem(STORAGE_TOKEN)
-    if (!token) {
-      const login = await axios.post(BASE_URL+'/login', {
-        "email": "tuliofaria@devpleno.com",
-        "passwd": "abc123"
-      })
-      token = login.data.token
-      localStorage.setItem(STORAGE_TOKEN, token)
-    }
-    const decoded = jwtDecode(token)
-    console.log(decoded)
-
-    const response  = await axios.get(BASE_URL + '/me', {
-      headers:{
-        Authorization: 'Bearer ' + token
-      }
-    })
-    console.log(response.data)
-  }
-
- */
 
   render() {
     return (
       <Provider store={store}>
-        <div className="App">
-         <Header />
-        </div>
+        <Router>
+          <Header />
+          <Route exact path='/' component={Home} />
+          <Route path='/admin' component={Admin} />
+          <Route exact path='/restrito' component={Restrito} />
+          <Route exact path='/login' component={Login} />
+        </Router>
       </Provider>
     );
   }
+  
 }
 
 export default App;
