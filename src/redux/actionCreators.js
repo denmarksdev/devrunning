@@ -1,4 +1,4 @@
-import  { createActions } from 'reduxsauce'
+import { createActions } from 'reduxsauce'
 
 export const {
     Types,
@@ -8,9 +8,23 @@ export const {
     signinSuccess: ['user'],
     signinFailure: ['error'],
 
-    authRequest:null,
+    authRequest: null,
     authSuccess: ['user'],
-    authFailure: ['error']
+    authFailure: ['error'],
+
+    logoutRequest: null,
+    logoutSuccess: null, 
+    logoutFailure: ['erro'],
+
+    getRunsRequest: null,
+    getRunsSuccess: ['runs'],
+    getRunsFailure: null,
+
+    createRunRequest: ['run'],
+    createRunSuccess: ['run'],
+    createRunFailure: ['error']
+    //'friendly_name','duration', 'distance', 'created'
+
 })
 
 export default Creators

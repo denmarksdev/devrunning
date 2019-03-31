@@ -1,15 +1,12 @@
-import React from 'react';
-import {
-    Container,
-    Form,
-    FormControl,
-    Button,
-    Alert
-} from 'react-bootstrap'
-
+import React, { Fragment } from 'react';
 import ActionCreator from '../redux/actionCreators'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import {
+    Form,
+    Button,
+    Label
+} from 'semantic-ui-react'
 
 class Login extends React.Component {
 
@@ -46,34 +43,39 @@ class Login extends React.Component {
         }
 
         return (
-            <Container>
+            <Fragment>
+                <h1>Entrar</h1>
                 <Form>
-                    <h1>Login</h1>
-                    <Form.Group>
-                        <Form.Label>Emaill</Form.Label>
-                        <FormControl
-                            placeholder='Enter email'
+                    <Form.Field  >
+                        <label>Email</label>
+                        <Form.Input
                             type='text'
                             value={form.email}
                             onChange={this.onFormInputChange('email')} />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Label>Senha</Form.Label>
-                        <FormControl
+                    </Form.Field>
+                    <Form.Field >
+                        <label>Senha</label>
+                        <input
                             type='password'
-                            placeholder='Password'
                             value={form.passwd}
                             onChange={this.onFormInputChange('passwd')} />
-                    </Form.Group>
-                    {
-                        auth.error &&
-                        <Alert variant='danger'>{auth.errorMessage}</Alert>
-                    }
-                    <Button variant='primary' onClick={this.onSubmit} >
-                        Submit
-                    </Button>
+                    </Form.Field>
+                    <div style={{ display:'flex', flexDirection:'column' }} >
+                        {
+                            auth.error &&
+                            <Label basic color='red' style={{ maxWidth:'120px', margin:'10px 0', color:'#fff' }}>
+                                {auth.errorMessage}
+                            </Label>
+                        }
+                        <Button 
+                             style={{ maxWidth:'100px' }}
+                             onClick={this.onSubmit}
+                             primary                              >
+                              Logar
+                        </Button>
+                    </div>
                 </Form>
-            </Container >
+            </Fragment>
         )
     }
 }

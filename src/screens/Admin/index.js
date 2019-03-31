@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Route, Link, Redirect } from 'react-router-dom';
-import {
-    Container,
-    Row,
-    Col,
-    Nav
-} from 'react-bootstrap'
+
+import Header from './elements/Header';
 
 const Home = props => {
     return <h1>Home admin</h1>
@@ -21,40 +17,24 @@ const Admin = props => {
     const { auth } = props
 
     if (!auth.isAuth) {
-        return <Redirect to='/login'/>
+        return <Redirect to='/login' />
     }
     else if (auth.user.role !== 'admin') {
-        return <Redirect to='/restrito'/>
+        return <Redirect to='/restrito' />
     }
 
     return (
-        <Container>
-            <Row>
-                <Col>
-                    <h1>Admin {JSON.stringify(auth)}</h1>
-                    <Nav>
-                        <Nav.Item>
-                            <Link className='nav-link' to='/admin'>Home</Link>
-                        </Nav.Item>
-                        <Nav.Item>
-                            <Link className='nav-link' to='/admin/users'>Users</Link>
-                        </Nav.Item>
-                    </Nav>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <Route exact path={`${path}/`} component={Home} />
-                    <Route exact path={`${path}/users`} component={Users} />
-                </Col>
-            </Row>
-        </Container>
+        <Fragment>
+            <Header />
+            <Route exact path={`${path}/`} component={Home} />
+            <Route exact path={`${path}/users`} component={Users} />
+        </Fragment>
     )
 }
 
 const mapStateToProps = state => {
     return {
-        auth:state.auth
+        auth: state.auth
     }
 }
 

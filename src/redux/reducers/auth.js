@@ -72,6 +72,16 @@ export const authFailure = (state = INITIAL_STATE, action) => {
     }
 }
 
+export const logoutSuccess = (state = INITIAL_STATE, action) => {
+    console.log('logoutSuccess')
+    return {
+        ...state,
+        isSigningin: false,
+        isAuth: false,
+        user: {}
+    }
+}
+
 export const HANDLERS = {
     [Types.SIGNIN_REQUEST]:signinRequest,
     [Types.SIGNIN_SUCCESS]:signinSuccess,
@@ -79,7 +89,9 @@ export const HANDLERS = {
     
     [Types.AUTH_REQUEST]:authRequest,
     [Types.AUTH_SUCCESS]:authSuccess,
-    [Types.AUTH_FAILURE]:authFailure
+    [Types.AUTH_FAILURE]:authFailure,
+
+    [Types.LOGOUT_SUCCESS]:logoutSuccess,
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)
