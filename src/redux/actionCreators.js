@@ -10,7 +10,7 @@ export const {
 
     authRequest:null,
     authSuccess: ['user'],
-    authFailure: null
+    authFailure: ['error']
 })
 
 export default Creators

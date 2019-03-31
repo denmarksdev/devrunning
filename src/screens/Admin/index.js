@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Route, Link, Redirect } from 'react-router-dom';
 import {
     Container,
     Row,
@@ -17,21 +18,26 @@ const Users = props => {
 
 const Admin = props => {
     const { path } = props.match
+    const { auth } = props
+
+    if (!auth.isAuth) {
+        return <Redirect to='/login'/>
+    }
+    else if (auth.user.role !== 'admin') {
+        return <Redirect to='/restrito'/>
+    }
+
     return (
         <Container>
             <Row>
                 <Col>
-                    <h1>Admin</h1>
+                    <h1>Admin {JSON.stringify(auth)}</h1>
                     <Nav>
                         <Nav.Item>
-                            <Nav.Link>
-                                <Link to='/admin'>Home</Link>
-                            </Nav.Link>
+                            <Link className='nav-link' to='/admin'>Home</Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>
-                                <Link to='/admin/users'>Users</Link>
-                            </Nav.Link>
+                            <Link className='nav-link' to='/admin/users'>Users</Link>
                         </Nav.Item>
                     </Nav>
                 </Col>
@@ -46,4 +52,10 @@ const Admin = props => {
     )
 }
 
-export default Admin
+const mapStateToProps = state => {
+    return {
+        auth:state.auth
+    }
+}
+
+export default connect(mapStateToProps)(Admin)

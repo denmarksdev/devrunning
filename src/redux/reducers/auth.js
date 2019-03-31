@@ -11,6 +11,7 @@ export const INITIAL_STATE = {
 }
 
 export const signinRequest = (state = INITIAL_STATE , action) => {
+    console.log('signinRequest')
     return {
         ...state,
         isSigningin: true,
@@ -20,6 +21,7 @@ export const signinRequest = (state = INITIAL_STATE , action) => {
 }
 
 export const signinSuccess = (state = INITIAL_STATE, action) => {
+    console.log('signinSuccess')
     return {
         ...state,
         isSigningin: false,
@@ -29,6 +31,7 @@ export const signinSuccess = (state = INITIAL_STATE, action) => {
 }
 
 export const siginFailure = (state = INITIAL_STATE, action) => {
+    console.log('siginFailure')
     return {
         ...state,
         isSigningin: false,
@@ -37,10 +40,46 @@ export const siginFailure = (state = INITIAL_STATE, action) => {
     }
 }
 
+export const authRequest = (state = INITIAL_STATE , action) => {
+    console.log('authRequest')
+    return {
+        ...state,
+        isSigningin: true,
+        error:false,
+        errorMessage:''
+    }
+}
+
+export const authSuccess = (state = INITIAL_STATE, action) => {
+    console.log('authSuccess')
+    return {
+        ...state,
+        isSigningin: false,
+        isAuth: true,
+        user: action.user
+    }
+}
+
+export const authFailure = (state = INITIAL_STATE, action) => {
+    console.log('authFailure')
+
+    return {
+        ...state,
+        isSigningin: false,
+        isAuth: false,
+        error:false,
+        errorMessage:action.error
+    }
+}
+
 export const HANDLERS = {
     [Types.SIGNIN_REQUEST]:signinRequest,
-    [Types.SIGNIN_SUCCESS]: signinSuccess,
-    [Types.SIGNIN_FAILURE]: siginFailure
+    [Types.SIGNIN_SUCCESS]:signinSuccess,
+    [Types.SIGNIN_FAILURE]:siginFailure,
+    
+    [Types.AUTH_REQUEST]:authRequest,
+    [Types.AUTH_SUCCESS]:authSuccess,
+    [Types.AUTH_FAILURE]:authFailure
 }
 
 export default createReducer(INITIAL_STATE, HANDLERS)

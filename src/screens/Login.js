@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Container,
     Form,
     FormControl,
-    Button
+    Button,
+    Alert
 } from 'react-bootstrap'
 
 import ActionCreator from '../redux/actionCreators'
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom'
 
 class Login extends React.Component {
 
@@ -34,15 +36,24 @@ class Login extends React.Component {
 
     render() {
         const form = this.state
-        console.log(JSON.stringify(this.props))
+        const { auth } = this.props
+
+        if (auth.isAuth) {
+            if (auth.user.role === 'admin')
+                return <Redirect to='/admin' />
+            else
+                return <Redirect to='/restrito' />
+        }
+
         return (
             <Container>
-                <Form onSubmit={this.onSubmit} >
+                <Form>
                     <h1>Login</h1>
                     <Form.Group>
                         <Form.Label>Emaill</Form.Label>
                         <FormControl
                             placeholder='Enter email'
+                            type='text'
                             value={form.email}
                             onChange={this.onFormInputChange('email')} />
                     </Form.Group>
@@ -54,11 +65,15 @@ class Login extends React.Component {
                             value={form.passwd}
                             onChange={this.onFormInputChange('passwd')} />
                     </Form.Group>
-                    <Button variant='primary' type='submit' >
+                    {
+                        auth.error &&
+                        <Alert variant='danger'>{auth.errorMessage}</Alert>
+                    }
+                    <Button variant='primary' onClick={this.onSubmit} >
                         Submit
                     </Button>
                 </Form>
-            </Container>
+            </Container >
         )
     }
 }
@@ -71,7 +86,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        login: (email, passwd) => dispatch( ActionCreator.signinRequest(email,passwd) )
+        login: (email, passwd) => dispatch(ActionCreator.signinRequest(email, passwd))
     }
 }
 
