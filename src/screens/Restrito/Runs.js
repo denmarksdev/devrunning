@@ -6,6 +6,10 @@ import {
     Button
 } from 'semantic-ui-react'
 
+import Duration from './../components/Duration';
+import Distance from './../components/Distance';
+import DateString from './../components/DateString';
+
 class Runs extends React.Component {
 
     //'friendly_name','duration', 'distance', 'created'
@@ -27,9 +31,9 @@ class Runs extends React.Component {
             <Table.Row key={index} >
                 <Table.Cell>{run.id}</Table.Cell>
                 <Table.Cell>{run['friendly_name']}</Table.Cell>
-                <Table.Cell>{run.duration}        </Table.Cell>
-                <Table.Cell>{run.created}         </Table.Cell>
-                <Table.Cell>{run.distance}        </Table.Cell>
+                <Table.Cell><Duration duration={run.duration}/></Table.Cell>
+                <Table.Cell><Distance distance={run.distance}/></Table.Cell>
+                <Table.Cell><DateString date={run.created} timezone={'GMT'}/></Table.Cell>
             </Table.Row>
         )
     }
@@ -39,11 +43,11 @@ class Runs extends React.Component {
         const { run } = this.state
         return (
             <Fragment>
-                <h1>Runs</h1>
+                <h1>Corridas</h1>
                 <Button
                     onClick={() => create(run)}
                     variant='primary'>Create</Button>
-                <Table celled style={{ marginTop: '20px' }} striped bordered hover >
+                <Table celled style={{ marginTop: '20px' }}>
                     <Table.Header>
                         <Table.HeaderCell>Id</Table.HeaderCell>
                         <Table.HeaderCell>Friendly name</Table.HeaderCell>
