@@ -7,7 +7,6 @@ export const INITIAL_STATE = {
 }
 
 export const getRunsRequest = (state = INITIAL_STATE , action) => {
-    console.log('getRunRequest')
     return {
         ...state,
         isLoading:true
@@ -15,8 +14,6 @@ export const getRunsRequest = (state = INITIAL_STATE , action) => {
 }
 
 export const getRunsSuccess = (state = INITIAL_STATE, action) => {
-    console.log('getRunsSuccess')
-    console.log(action.runs)
     return {
         ...state,
         data:action.runs
@@ -24,7 +21,6 @@ export const getRunsSuccess = (state = INITIAL_STATE, action) => {
 }
 
 export const getRunsFailure = (state = INITIAL_STATE, action) => {
-    console.log('getRunsFailure')
     return {
         ...state,
         isLoading:false,

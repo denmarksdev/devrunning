@@ -26,20 +26,20 @@ class Runs extends React.Component {
         this.props.load()
     }
 
-    renderRun = (run, index) => {
+    renderRun = (run, index, user) => {
         return (
             <Table.Row key={index} >
                 <Table.Cell>{run.id}</Table.Cell>
                 <Table.Cell>{run['friendly_name']}</Table.Cell>
                 <Table.Cell><Duration duration={run.duration}/></Table.Cell>
-                <Table.Cell><Distance distance={run.distance}/></Table.Cell>
-                <Table.Cell><DateString date={run.created} timezone={'GMT'}/></Table.Cell>
+                <Table.Cell><Distance distance={run.distance} unit={user.unit}  /></Table.Cell>
+                <Table.Cell><DateString date={run.created} timezone={user.timezone}/></Table.Cell>
             </Table.Row>
         )
     }
 
     render() {
-        const { create, runs } = this.props
+        const { create, runs, auth } = this.props
         const { run } = this.state
         return (
             <Fragment>
@@ -57,7 +57,8 @@ class Runs extends React.Component {
                     </Table.Header>
                     <Table.Body>
                         {
-                            runs.data.map(this.renderRun)
+                            runs.data.map( (run,index ) =>
+                                 this.renderRun(run,index, auth.user ) )
                         }
                     </Table.Body>
                 </Table>
@@ -68,7 +69,8 @@ class Runs extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        runs: state.runs
+        runs: state.runs,
+        auth: state.auth
     }
 }
 

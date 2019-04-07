@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 import Header from './elements/Header';
 
@@ -15,6 +15,10 @@ const Users = props => {
 const Admin = props => {
     const { path } = props.match
     const { auth } = props
+
+    if (auth.isSigningin) {
+        return <p>Is loading ...</p>
+    }
 
     if (!auth.isAuth) {
         return <Redirect to='/login' />

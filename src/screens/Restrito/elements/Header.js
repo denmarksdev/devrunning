@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import UserOptions from '../../components/UserOptions'
 import { 
     Menu,
-    Dropdown
 } from 'semantic-ui-react'
 
 const style = {
@@ -19,7 +18,11 @@ const Header = ({ auth, logout }) => {
             <Menu.Item as={Link} to='/restrito/'>Home</Menu.Item>
             <Menu.Item as={Link} to='/restrito/runs'>Runs</Menu.Item>
             <Menu.Item as={Link} to='/'>Voltar</Menu.Item>
-            <UserOptions auth={auth} logout={logout} />
+            <UserOptions 
+                auth={auth} 
+                logout={logout}
+                path='/restrito/my-account'
+                 />
         </Menu>
     )
 }

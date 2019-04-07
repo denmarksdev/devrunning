@@ -17,10 +17,7 @@ export function* getRuns() {
 
 export function* createRun(action) {
     const token = localStorage.getItem(STORAGE_TOKEN)
-    console.log(token)
-    console.log()
-
-    const response = yield axios.post(BASE_URL + '/runs',action.run,{
+    yield axios.post(BASE_URL + '/runs',action.run,{
         headers: {
             Authorization: 'Bearer ' + token
         },
