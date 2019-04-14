@@ -65,3 +65,21 @@ export function* updateProfile(action) {
   })
   yield put(ActionCreators.updateProfileSuccess(userToSave))
 }
+
+
+export function* createProfile(action) {
+  const userToSave = {
+    ...action.user
+  }
+  const user = yield axios.post(`${BASE_URL}/users`, userToSave)
+
+  if (user && user.data && user.data.error) {
+    yield put(ActionCreators.createProfileFailure(user.data.message))
+  } else {
+    yield put(ActionCreators.createProfileSuccess(userToSave))
+    yield put(ActionCreators.signinRequest(
+      userToSave.email,
+       userToSave.passwd
+    ))
+  }
+}

@@ -1,23 +1,18 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
+import ActionsCreators from '../../redux/actionCreators'
+
 import {
     Button,
     Dropdown,
     Form,
     Segment
 } from 'semantic-ui-react'
-
-import timezones from 'moment-timezone/data/meta/latest.json'
-import ActionsCreators from '../../redux/actionCreators'
-
-const dropDownStyle = {
-    marginBottom: '10px',
-    maxWidth: '300px'
-}
+import TimeZoneDropDown from './../components/TimeZoneDropDown';
+import UnitDropDown from '../components/UnitDropDown';
 
 class MyAccount extends React.Component {
     state = {
-        zones: [],
         unit: '',
         timezone: ''
     }
@@ -34,23 +29,13 @@ class MyAccount extends React.Component {
         const {
             auth,
             reset
-        }  = this.props
+        } = this.props
 
         reset()
-
-        let zones = []
-        Object.keys(timezones.zones).sort().forEach(key =>
-            zones.push({
-                key: key,
-                value: key,
-                text: key
-            })
-        )
 
         this.setState({
             unit: auth.user.unit,
             timezone: auth.user.timezone,
-            zones
         })
     }
 
@@ -80,33 +65,18 @@ class MyAccount extends React.Component {
                     !this.props.auth.isSaved &&
                     <Form>
                         <Form.Field>
-                            <Dropdown
-                                style={dropDownStyle}
-                                fluid
-                                search
-                                selection
-                                value={unit}
+                            <UnitDropDown
+                               value={unit}
                                 onChange={(e, { value }) => {
                                     this.setState({ unit: value })
-                                }}
-                                options={[
-                                    { key: 'metric', value: 'metric', text: 'Métrico' },
-                                    { key: 'imperial', value: 'imperial', text: 'Imperial (mi)' },
-                                ]}
-                            />
-                            <Dropdown
-                                style={dropDownStyle}
-                                fluid
-                                search
-                                selection
-                                value={timezone}
-                                onChange={(e, { value }) => this.setState({ timezone: value })}
-                                options={zones} />
-
+                                }} />
+                            <TimeZoneDropDown
+                                timeZone={timezone}
+                                onChange={(e, { value }) => this.setState({ timezone: value })} />
                             <Button style={{ maxWidth: '100px' }}
                                 variant='primary'
                                 onClick={this.onClick}>
-                                Save
+                                Salvar
                             </Button>
                         </Form.Field>
                     </Form>
@@ -125,7 +95,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         save: user => dispatch(ActionsCreators.updateProfileRequest(user)),
-        reset: () => dispatch( ActionsCreators.updateProfileReset())
+        reset: () => dispatch(ActionsCreators.updateProfileReset())
     }
 }
 

@@ -16,7 +16,6 @@ const Header = ({ auth, logout }) => {
             <Menu.Item as={Link} to={'/'}  ><Image src={logo} size='small' centered /></Menu.Item>
             <Menu.Item as={Link} to='/restrito/'>Home</Menu.Item>
             <Menu.Item as={Link} to='/restrito/runs'>Runs</Menu.Item>
-            <Menu.Item as={Link} to='/'>Voltar</Menu.Item>
             <UserOptions
                 auth={auth}
                 logout={logout}

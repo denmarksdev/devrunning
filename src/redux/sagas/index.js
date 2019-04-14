@@ -5,7 +5,8 @@ import {
   auth,
   login,
   logout,
-  updateProfile
+  updateProfile,
+  createProfile
 } from '../sagas/auth'
 import {
   getRuns,
@@ -22,6 +23,8 @@ export default function* roorSaga() {
     takeLatest(Types.GET_RUNS_REQUEST, getRuns),
     takeLatest(Types.CREATE_RUN_REQUEST, createRun),
     takeLatest(Types.UPDATE_PROFILE_REQUEST, updateProfile),
+
+    takeLatest(Types.CREATE_PROFILE_REQUEST, createProfile),
 
     put(ActionCreators.authRequest())
   ])
