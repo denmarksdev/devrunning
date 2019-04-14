@@ -5,16 +5,15 @@ import { Link } from 'react-router-dom'
 import UserOptions from '../../components/UserOptions'
 import {
     Menu,
+    Image
 } from 'semantic-ui-react'
 
-const style = {
-    marginLeft: '5px'
-}
+import logo from '../../../assets/logo.png'
 
 const Header = ({ auth, logout }) => {
     return (
         <Menu>
-            <Menu.Item>Corridas Online  <strong style={style} >Restrito</strong></Menu.Item>
+            <Menu.Item as={Link} to={'/'}  ><Image src={logo} size='small' centered /></Menu.Item>
             <Menu.Item as={Link} to='/restrito/'>Home</Menu.Item>
             <Menu.Item as={Link} to='/restrito/runs'>Runs</Menu.Item>
             <Menu.Item as={Link} to='/'>Voltar</Menu.Item>

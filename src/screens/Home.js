@@ -1,15 +1,18 @@
 import React from 'react';
-import {
-    Container
-
-} from 'react-bootstrap'
 import Header from '../Header';
+import {
+    Container,
+    Image,
+} from 'semantic-ui-react'
 
-const Home = props => {
+import logo from '../assets/logo-home.png'
+
+const Home = () => {
     return (
         <Container>
             <Header />
-            <h1>Home</h1>
+            <h1>Seja bem-vindo!</h1>
+            <Image centered src={logo} size='medium' />
         </Container>
     )
 }

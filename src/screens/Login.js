@@ -5,8 +5,10 @@ import { Redirect } from 'react-router-dom'
 import {
     Form,
     Button,
-    Label
+    Label,
 } from 'semantic-ui-react'
+
+import Header from '../Header'
 
 class Login extends React.Component {
 
@@ -44,6 +46,7 @@ class Login extends React.Component {
 
         return (
             <Fragment>
+                <Header />
                 <h1>Entrar</h1>
                 <Form>
                     <Form.Field  >
