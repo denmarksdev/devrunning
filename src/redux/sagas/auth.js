@@ -56,8 +56,7 @@ export function* logout() {
 export function* updateProfile(action) {
   const token = localStorage.getItem(STORAGE_TOKEN)
   const userToSave = {
-    unit: action.user.unit,
-    timezone: action.user.timezone
+    ...action.user
   }
   const user = yield axios.patch(`${BASE_URL}/users/${action.user.id}`, userToSave, {
     headers: {

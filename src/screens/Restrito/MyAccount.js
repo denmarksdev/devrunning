@@ -1,30 +1,42 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
 import {
     Button,
-    Dropdown
+    Dropdown,
+    Form,
+    Segment
 } from 'semantic-ui-react'
 
 import timezones from 'moment-timezone/data/meta/latest.json'
 import ActionsCreators from '../../redux/actionCreators'
 
+const dropDownStyle = {
+    marginBottom: '10px',
+    maxWidth: '300px'
+}
+
 class MyAccount extends React.Component {
     state = {
         zones: [],
-        unit:'',
-        timezone:''
+        unit: '',
+        timezone: ''
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
-       if (prevState.unit) return null
+        if (prevState.unit) return null
         return {
-            unit:  nextProps.auth.user.unit,
+            unit: nextProps.auth.user.unit,
             timezone: nextProps.auth.user.timezone
         }
     }
 
     componentDidMount() {
-        const auth = this.props.auth
+        const {
+            auth,
+            reset
+        }  = this.props
+
+        reset()
 
         let zones = []
         Object.keys(timezones.zones).sort().forEach(key =>
@@ -58,36 +70,48 @@ class MyAccount extends React.Component {
         } = this.state
 
         return (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <h1>Mina conta</h1>
-                <Dropdown
-                    fluid
-                    search
-                    selection
-                    value={ unit }
-                    onChange={(e, { value }) => {
-                        this.setState({ unit: value })
-                    } }
-                    options={[
-                        { key: 'metric', value: 'metric', text: 'Métrico' },
-                        { key: 'imperial', value: 'imperial', text: 'Imperial (mi)' },
-                    ]}
-                />
-                <Dropdown
-                    fluid
-                    search
-                    selection
-                    value={ timezone }
-                    onChange={(e, { value }) => this.setState({ timezone: value })}
-                    options={zones}
-                />
-                <Button style={{ maxWidth: '100px' }}
-                    variant='primary'
-                    onClick={this.onClick}>
-                    Save
-                 </Button>
+            <Fragment>
+                <h1>Minha conta</h1>
+                {
+                    this.props.auth.isSaved &&
+                    <Segment color='green'> Configuração alterada com sucesso.</Segment>
+                }
+                {
+                    !this.props.auth.isSaved &&
+                    <Form>
+                        <Form.Field>
+                            <Dropdown
+                                style={dropDownStyle}
+                                fluid
+                                search
+                                selection
+                                value={unit}
+                                onChange={(e, { value }) => {
+                                    this.setState({ unit: value })
+                                }}
+                                options={[
+                                    { key: 'metric', value: 'metric', text: 'Métrico' },
+                                    { key: 'imperial', value: 'imperial', text: 'Imperial (mi)' },
+                                ]}
+                            />
+                            <Dropdown
+                                style={dropDownStyle}
+                                fluid
+                                search
+                                selection
+                                value={timezone}
+                                onChange={(e, { value }) => this.setState({ timezone: value })}
+                                options={zones} />
 
-            </div>
+                            <Button style={{ maxWidth: '100px' }}
+                                variant='primary'
+                                onClick={this.onClick}>
+                                Save
+                            </Button>
+                        </Form.Field>
+                    </Form>
+                }
+            </Fragment>
         )
     }
 }
@@ -100,8 +124,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        // load: () => dispatch(ActionCreators.getRunsRequest()),
-        save: user => dispatch(ActionsCreators.updateProfileRequest(user))
+        save: user => dispatch(ActionsCreators.updateProfileRequest(user)),
+        reset: () => dispatch( ActionsCreators.updateProfileReset())
     }
 }
 

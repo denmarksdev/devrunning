@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import ActionCreators from '../../../redux/actionCreators'
 import { Link } from 'react-router-dom'
 import UserOptions from '../../components/UserOptions'
-import { 
+import {
     Menu,
 } from 'semantic-ui-react'
 
@@ -14,15 +14,15 @@ const style = {
 const Header = ({ auth, logout }) => {
     return (
         <Menu>
-            <Menu.Item>Corridas Online  <strong  style={style} >Restrito</strong></Menu.Item>
+            <Menu.Item>Corridas Online  <strong style={style} >Restrito</strong></Menu.Item>
             <Menu.Item as={Link} to='/restrito/'>Home</Menu.Item>
             <Menu.Item as={Link} to='/restrito/runs'>Runs</Menu.Item>
             <Menu.Item as={Link} to='/'>Voltar</Menu.Item>
-            <UserOptions 
-                auth={auth} 
+            <UserOptions
+                auth={auth}
                 logout={logout}
                 path='/restrito/my-account'
-                 />
+                pathChangePass='/restrito/change-pass' />
         </Menu>
     )
 }
@@ -36,7 +36,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         sigin: (email, passwd) => ActionCreators.signinRequest(email, passwd),
-        logout: ()=> dispatch( ActionCreators.logoutRequest())
+        logout: () => dispatch(ActionCreators.logoutRequest())
     }
 }
 

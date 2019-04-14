@@ -4,7 +4,9 @@ import { Redirect, Route } from 'react-router-dom';
 import Home from './Home';
 import Runs from './Runs';
 import Header from './elements/Header';
+import ChangePass from './ChangePass'
 import MyAccount from './MyAccount';
+
 
 const Restrito = props => {
     const { auth, match } = props
@@ -23,6 +25,7 @@ const Restrito = props => {
             <Route exact path={`${match.path}/`} component={Home} />
             <Route exact path={`${match.path}/runs`} component={Runs} />
             <Route path={`${match.path}/my-account`} component={MyAccount} />
+            <Route path={`${match.path}/change-pass`} component={ChangePass} />
         </Fragment>
     )
 }
