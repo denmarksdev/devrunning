@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import ActionCreators from '../../redux/actionCreators'
 import {
     Table,
@@ -12,16 +13,6 @@ import DateString from './../components/DateString';
 
 class Runs extends React.Component {
 
-    //'friendly_name','duration', 'distance', 'created'
-    state = {
-        run: {
-            friendly_name: 'run de test',
-            duration: 100,
-            distance: 100,
-            created: '2018-01-01 00:00:00'
-        }
-    }
-
     componentDidMount() {
         this.props.load()
     }
@@ -31,22 +22,19 @@ class Runs extends React.Component {
             <Table.Row key={index} >
                 <Table.Cell>{run.id}</Table.Cell>
                 <Table.Cell>{run['friendly_name']}</Table.Cell>
-                <Table.Cell><Duration duration={run.duration}/></Table.Cell>
-                <Table.Cell><Distance distance={run.distance} unit={user.unit}  /></Table.Cell>
-                <Table.Cell><DateString date={run.created} timezone={user.timezone}/></Table.Cell>
+                <Table.Cell><Duration duration={run.duration} /></Table.Cell>
+                <Table.Cell><Distance distance={run.distance} unit={user.unit} /></Table.Cell>
+                <Table.Cell><DateString date={run.created} timezone={user.timezone} /></Table.Cell>
             </Table.Row>
         )
     }
 
     render() {
-        const { create, runs, auth } = this.props
-        const { run } = this.state
+        const { runs, auth } = this.props
         return (
             <Fragment>
                 <h1>Corridas</h1>
-                <Button
-                    onClick={() => create(run)}
-                    variant='primary'>Create</Button>
+                <Button primary  as={Link} to='create-run' >Criar</Button>
                 <Table celled style={{ marginTop: '20px' }}>
                     <Table.Header>
                         <Table.HeaderCell>Id</Table.HeaderCell>
@@ -57,8 +45,8 @@ class Runs extends React.Component {
                     </Table.Header>
                     <Table.Body>
                         {
-                            runs.data.map( (run,index ) =>
-                                 this.renderRun(run,index, auth.user ) )
+                            runs.data.map((run, index) =>
+                                this.renderRun(run, index, auth.user))
                         }
                     </Table.Body>
                 </Table>
@@ -77,7 +65,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         load: () => dispatch(ActionCreators.getRunsRequest()),
-        create: run => dispatch(ActionCreators.createRunRequest(run))
     }
 }
 

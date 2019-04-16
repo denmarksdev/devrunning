@@ -7,7 +7,7 @@ const Distance = ({ distance, unit }) => {
     if (!distance) distance = 0
     
     if (unit === 'metric') {
-        distanceStr = distance + 'km'
+        distanceStr = distance.toFixed(2) + 'km'
     } else {
         const distanceMi = distance * KILOMETRE_MILE
         distanceStr = distanceMi.toFixed(2)  + 'mi'

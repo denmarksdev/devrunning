@@ -66,7 +66,7 @@ class MyAccount extends React.Component {
                     <Form>
                         <Form.Field>
                             <UnitDropDown
-                               value={unit}
+                               unit={unit}
                                 onChange={(e, { value }) => {
                                     this.setState({ unit: value })
                                 }} />
