@@ -58,10 +58,10 @@ export function* updateProfile(action) {
   const userToSave = {
     ...action.user
   }
-  const user = yield axios.patch(`${BASE_URL}/users/${action.user.id}`, userToSave, {
+  yield axios.patch(`${BASE_URL}/users/${action.user.id}`, userToSave, {
     headers: {
       Authorization: 'Bearer ' + token
-    },
+  },
   })
   yield put(ActionCreators.updateProfileSuccess(userToSave))
 }

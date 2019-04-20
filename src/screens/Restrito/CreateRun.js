@@ -5,8 +5,7 @@ import { BaseComponent } from './../components/BaseComponent';
 import InputMoment from 'input-moment'
 import 'input-moment/dist/input-moment.css'
 import moment from 'moment'
-import momentTz from 'moment-timezone'
-
+import {Redirect} from 'react-router-dom'
 
 import {
     Button,
@@ -37,22 +36,34 @@ class CreateRun extends BaseComponent {
     }
 
     onSave = () => {
-        const run = this.state.run;
+        const run = {...this.state.run};
         if (this.props.auth.user.unit !== 'metric')
             run.distance = (run.distance * 1.60934)
 
         const dateTimeZone = moment.tz(run.created, this.props.auth.user.timezone)
-        const d2  = dateTimeZone
+        const d2 = dateTimeZone
             .clone()
             .utc()
             .format('YYYY-MM-DD H:mm:ss')
-        
-        run.created = d2    
 
-        this.props.create(run)
+        run.created = d2
+
+        this.props.create( run)
+    }
+
+    formatDate = date => {
+        if (typeof (date) === 'string')
+             return moment( date)
+
+        return date.format('DD/MM/YYYY  H:mm:ss')
     }
 
     render() {
+
+        if (this.props.runs.saved){
+            return   <Redirect to='/restrito/runs' />
+        }
+
         return (
             <Fragment>
                 {
@@ -60,7 +71,11 @@ class CreateRun extends BaseComponent {
                     <Segment color='green'>Senha alterada com sucesso!</Segment>
                 }
                 {
-                    !this.props.auth.isSaved &&
+                    this.props.runs.saved &&
+                    <Segment color='green'>Corrida criada com sucesso</Segment>
+                }
+                {
+                    (!this.props.runs.saved) &&
                     <Form style={{ margin: '10px' }}>
                         <h1>Criar corrida</h1>
                         {
@@ -92,7 +107,7 @@ class CreateRun extends BaseComponent {
                         </Form.Field>
                         <Form.Field>
                             <label>Criação</label>
-                            <input type='text' value={this.state.run.created.format('DD/MM/YYYY  H:mm:ss')} />
+                            <input type='text' value={  this.formatDate(this.state.run.created)} />
                             <InputMoment
                                 moment={this.state.run.created}
                                 onChange={val => {
@@ -111,14 +126,15 @@ class CreateRun extends BaseComponent {
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth
+        auth: state.auth,
+        runs: state.runs
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        save: user => dispatch(ActionsCreators.updateProfileRequest(user)),
-        create: run => dispatch(ActionsCreators.createRunRequest(run))
+        create: run => dispatch(ActionsCreators.createRunRequest(run)),
+        reset: () => dispatch(ActionsCreators.createRunReset()),
     }
 }
 

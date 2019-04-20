@@ -4,7 +4,6 @@ import ActionsCreators from '../../redux/actionCreators'
 
 import {
     Button,
-    Dropdown,
     Form,
     Segment
 } from 'semantic-ui-react'
@@ -49,7 +48,6 @@ class MyAccount extends React.Component {
 
     render() {
         let {
-            zones,
             timezone,
             unit
         } = this.state

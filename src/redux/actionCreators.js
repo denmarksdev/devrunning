@@ -20,6 +20,11 @@ export const {
     getRunsSuccess: ['runs'],
     getRunsFailure: null,
 
+    removeRunRequest: ['id'],
+    removeRunSuccess: ['id'],
+    removeRunFailure: ['error'],
+
+    createRunReset:  null,
     createRunRequest: ['run'],
     createRunSuccess: ['run'],
     createRunFailure: ['error'],
@@ -34,6 +39,10 @@ export const {
     createProfileRequest: ['user'],
     createProfileSuccess: ['user'],
     createProfileFailure: ['error'],
+
+
+    
+
 })
 
 export default Creators
