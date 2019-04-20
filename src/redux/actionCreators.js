@@ -16,7 +16,7 @@ export const {
     logoutSuccess: null, 
     logoutFailure: ['erro'],
 
-    getRunsRequest: null,
+    getRunsRequest: ['admin'],
     getRunsSuccess: ['runs'],
     getRunsFailure: null,
 

@@ -5,12 +5,16 @@ import {
     Dropdown
 } from 'semantic-ui-react'
 
-const UserOptions = ({ auth, logout, path, pathChangePass }) => {
+const UserOptions = ({ auth, logout, myPath, pathChangePass,mode, to, showMode }) => {
     return (
         <Menu.Menu position='right' >
             <Dropdown item text={auth.user.name}>
                 <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to={path}>Minha conta</Dropdown.Item>
+                    {
+                        showMode &&
+                        <Dropdown.Item as={Link} to={to}>{mode}</Dropdown.Item>
+                    }
+                    <Dropdown.Item as={Link} to={myPath}>Minha conta</Dropdown.Item>
                     <Dropdown.Item as={Link} to={pathChangePass} >Alterar senha</Dropdown.Item>
                     <Dropdown.Item onClick={logout} >Sair</Dropdown.Item>
                 </Dropdown.Menu>
@@ -20,7 +24,8 @@ const UserOptions = ({ auth, logout, path, pathChangePass }) => {
 }
 
 UserOptions.defaultProps = {
-    path: '/my-account'
+    myPath: '/admin/my-account',
+    showMode: true,
 }
 
 export default UserOptions

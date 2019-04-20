@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 import Header from './elements/Header';
+import Runs from'./Runs';
+import MyAccount from'./MyAccount';
+import ChangePass from'./ChangePass';
 
 const Home = props => {
     return <h1>Home admin</h1>
@@ -32,6 +35,9 @@ const Admin = props => {
             <Header />
             <Route exact path={`${path}/`} component={Home} />
             <Route exact path={`${path}/users`} component={Users} />
+            <Route exact path={`${path}/runs`} component={Runs} />
+            <Route exact path={`${path}/my-account`} component={MyAccount} />
+            <Route exact path={`${path}/change-pass`} component={ChangePass} />
         </Fragment>
     )
 }

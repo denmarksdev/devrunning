@@ -13,7 +13,13 @@ const Header = ({ auth, logout }) => {
             <Menu.Item as={Link} to='/' ><Image src={logo} size='small' centered /></Menu.Item>
             <Menu.Item as={Link} to='/admin/'>Home</Menu.Item>
             <Menu.Item as={Link} to='/admin/users'>Usuários</Menu.Item>
-            <UserOptions auth={auth} logout={logout} />
+            <Menu.Item as={Link} to='/admin/runs'>Runs</Menu.Item>
+            <UserOptions 
+                auth={auth} 
+                logout={logout} 
+                pathChangePass='/admin/change-pass'
+                mode='Modo usuario'
+                to='/restrito'/>
         </Menu>
     )
 }

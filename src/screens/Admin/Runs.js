@@ -26,6 +26,7 @@ class Runs extends React.Component {
         return (
             <Table.Row key={index} >
                 <Table.Cell>{run.id}</Table.Cell>
+                <Table.Cell>{run.name}</Table.Cell>
                 <Table.Cell>{run['friendly_name']}</Table.Cell>
                 <Table.Cell><Duration duration={run.duration} /></Table.Cell>
                 <Table.Cell><Distance distance={run.distance} unit={user.unit} /></Table.Cell>
@@ -47,6 +48,7 @@ class Runs extends React.Component {
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Id</Table.HeaderCell>
+                            <Table.HeaderCell>User name</Table.HeaderCell>
                             <Table.HeaderCell>Friendly name</Table.HeaderCell>
                             <Table.HeaderCell>Duration</Table.HeaderCell>
                             <Table.HeaderCell>Distance</Table.HeaderCell>
@@ -76,7 +78,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        load: () => dispatch(ActionCreators.getRunsRequest(false)),
+        load: () => dispatch(ActionCreators.getRunsRequest(true)),
         remove: id => dispatch(ActionCreators.removeRunRequest(id))
     }
 }

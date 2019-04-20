@@ -19,8 +19,12 @@ const Header = ({ auth, logout }) => {
             <UserOptions
                 auth={auth}
                 logout={logout}
-                path='/restrito/my-account'
-                pathChangePass='/restrito/change-pass' />
+                myPath='/restrito/my-account'
+                pathChangePass='/restrito/change-pass'
+                to='/admin'
+                mode='Modo admin'
+                showMode={auth.user.role === 'admin'}
+                restrito=''/>
         </Menu>
     )
 }

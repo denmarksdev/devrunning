@@ -3,9 +3,14 @@ import { BASE_URL, STORAGE_TOKEN } from './../../consts/webConst';
 import ActionCreators from '../actionCreators'
 import { put } from 'redux-saga/effects';
 
-export function* getRuns() {
+export function* getRuns(action) {
     const token = localStorage.getItem(STORAGE_TOKEN)
-    const response = yield axios.get(BASE_URL + '/runs', {
+    let filter = ''
+    if (action.admin){
+        filter = '?admin=true'
+    }
+
+    const response = yield axios.get(`${BASE_URL}/runs${filter}` , {
         headers: {
             Authorization: 'Bearer ' + token
         }
