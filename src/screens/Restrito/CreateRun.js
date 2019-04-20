@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import ActionsCreators from '../../redux/actionCreators'
 import { BaseComponent } from './../components/BaseComponent';
 import InputMoment from 'input-moment'
+import 'input-moment/dist/input-moment.css'
 import moment from 'moment'
 import momentTz from 'moment-timezone'
+
 
 import {
     Button,
@@ -34,16 +36,20 @@ class CreateRun extends BaseComponent {
 
     }
 
-    onClick = () => {
+    onSave = () => {
         const run = this.state.run;
         if (this.props.auth.user.unit !== 'metric')
             run.distance = (run.distance * 1.60934)
 
         const dateTimeZone = moment.tz(run.created, this.props.auth.user.timezone)
-        const d2  = dateTimeZone.clone()
-        console.log(d2)
-        // this.props.create(run).tz('GTM')
-     
+        const d2  = dateTimeZone
+            .clone()
+            .utc()
+            .format('YYYY-MM-DD H:mm:ss')
+        
+        run.created = d2    
+
+        this.props.create(run)
     }
 
     render() {
@@ -95,7 +101,7 @@ class CreateRun extends BaseComponent {
                             />
 
                         </Form.Field>
-                        <Button primary onClick={this.onClick} >Salvar</Button>
+                        <Button primary onClick={this.onSave} >Salvar</Button>
                     </Form>
                 }
             </Fragment>
