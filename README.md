@@ -14,7 +14,7 @@ Gerenciador de corridas, que permite a criação de contas de adminitrador ou us
 1. Para logar na aplicação usar o email **tuliofaria@devpleno.com** e senha **abc123456"**
 
 
-# Screeshot
+# Screenshot
 
  ![](https://github.com/denmarksdev/devrunning/blob/master/Screenshot.jpg?raw=true "Dev Running")
 
