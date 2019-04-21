@@ -10,7 +10,7 @@ Gerenciador de corridas, que permite a criação de contas de adminitrador ou us
    
 1. Clonar o repositório do [Servidor](https://github.com/tuliofaria/devreactjs-bootcamp-runs-server)
 1. Dentro da pasta raiz do servidor executar o comando `yarn start ` ou `npm start`
-1. Após clonar o repositório do **devrunning** executar o comando `yarn start ` ou `npm start`
+1. Após clonar o repositório do **devrunning** executar o comando ` yarn; yarn start` ou `npm i;npm start`
 1. Para logar na aplicação usar o email **tuliofaria@devpleno.com** e senha **abc123456"**
 
 
