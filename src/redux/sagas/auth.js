@@ -1,19 +1,16 @@
-import { put } from 'redux-saga/effects'
-import axios from 'axios'
+import { put, call } from 'redux-saga/effects'
 import jwtDecode from 'jwt-decode';
 import ActionCreators from '../actionCreators'
 import {
-  BASE_URL,
   STORAGE_TOKEN,
   STORAGE_USER
 } from '../../consts/webConst'
 
-export function* login(action) {
-  console.log('Login generator')
+export const login = ({ api }) => function* (action) {
 
   let token = localStorage.getItem(STORAGE_TOKEN)
   if (!token) {
-    const login = yield axios.post(BASE_URL + '/users/login', {
+    const login = yield call(api.login, {
       "email": action.email,
       "passwd": action.passwd
     })
@@ -29,17 +26,14 @@ export function* login(action) {
   }
 }
 
-export function* auth() {
+export const auth = ({ api }) => function* () {
   const token = localStorage.getItem(STORAGE_TOKEN)
   if (token) {
     try {
-      const user = yield axios.get(BASE_URL + '/users/me', {
-        headers: {
-          Authorization: 'Bearer ' + token
-        },
-      })
+      const user = yield call(api.auth)
       yield put(ActionCreators.authSuccess(user.data))
     } catch (error) {
+      console.log(error)
       yield put(ActionCreators.authFailure('invalid token'))
     }
   } else {
@@ -53,33 +47,20 @@ export function* logout() {
   yield put(ActionCreators.logoutSuccess())
 }
 
-export function* updateProfile(action) {
-  const token = localStorage.getItem(STORAGE_TOKEN)
-  const userToSave = {
-    ...action.user
-  }
-  yield axios.patch(`${BASE_URL}/users/${action.user.id}`, userToSave, {
-    headers: {
-      Authorization: 'Bearer ' + token
-  },
-  })
-  yield put(ActionCreators.updateProfileSuccess(userToSave))
+export const updateProfile = ({ api }) => function* (action) {
+  yield call(api.updateProfile, action.user)
+  yield put(ActionCreators.updateProfileSuccess(action.user))
 }
 
-
-export function* createProfile(action) {
-  const userToSave = {
-    ...action.user
-  }
-  const user = yield axios.post(`${BASE_URL}/users`, userToSave)
-
+export const createProfile = ({ api }) => function* (action) {
+  const user = call(api.createProfile, action.user)
   if (user && user.data && user.data.error) {
     yield put(ActionCreators.createProfileFailure(user.data.message))
   } else {
-    yield put(ActionCreators.createProfileSuccess(userToSave))
+    yield put(ActionCreators.createProfileSuccess(action.user))
     yield put(ActionCreators.signinRequest(
-      userToSave.email,
-       userToSave.passwd
+      action.email,
+      action.passwd
     ))
   }
 }

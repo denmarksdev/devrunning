@@ -8,6 +8,10 @@ export class BaseComponent extends React.Component {
         this.setPropertyByPath(this.state, name, value)
     }
 
+    onChangeValue = (name,value) => {
+        this.setPropertyByPath(this.state, name, value)
+    }
+
     setPropertyByPath = (state, path, value) => {
         const parts = path.split('.');
         if (parts.length > 1) {

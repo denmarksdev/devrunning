@@ -20,6 +20,14 @@ export const {
     getRunsSuccess: ['runs'],
     getRunsFailure: null,
 
+    getUsersRequest: null,
+    getUsersSuccess: ['users'],
+    getUsersFailure: null,
+
+    getUserRequest: ['id'],
+    getUserSuccess: ['user'],
+    getUserFailure: null,
+
     removeRunRequest: ['id'],
     removeRunSuccess: ['id'],
     removeRunFailure: ['error'],
@@ -35,14 +43,20 @@ export const {
     updateProfileSuccess: ['user'],
     updateProfileFailure: ['error'],
 
+
+    updateUserReset: null,
+    updateUserRequest: ['user'],
+    updateUserSuccess: ['user'],
+    updateUserFailure: ['error'],
+
     createProfileReset: null,
     createProfileRequest: ['user'],
     createProfileSuccess: ['user'],
     createProfileFailure: ['error'],
 
-
-    
-
+    removeUserRequest: ['id'],
+    removeUserSuccess: ['id'],
+    removeUserFailure: ['error'],
 })
 
 export default Creators

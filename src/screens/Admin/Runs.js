@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import ActionCreators from '../../redux/actionCreators'
 import {
     Table,
@@ -31,7 +30,7 @@ class Runs extends React.Component {
                 <Table.Cell><Duration duration={run.duration} /></Table.Cell>
                 <Table.Cell><Distance distance={run.distance} unit={user.unit} /></Table.Cell>
                 <Table.Cell><DateString date={run.created} timezone={user.timezone} /></Table.Cell>
-                <Table.Cell>
+                <Table.Cell textAlign='center' >
                     <Button onClick={ () => this.onRemove(run.id)} basic color='red'>Remove</Button>
                 </Table.Cell>
             </Table.Row>
@@ -43,7 +42,6 @@ class Runs extends React.Component {
         return (
             <Fragment>
                 <h1>Corridas</h1>
-                <Button primary  as={Link} to='create-run' >Criar</Button>
                 <Table celled style={{ marginTop: '20px' }}>
                     <Table.Header>
                         <Table.Row>
@@ -53,7 +51,7 @@ class Runs extends React.Component {
                             <Table.HeaderCell>Duration</Table.HeaderCell>
                             <Table.HeaderCell>Distance</Table.HeaderCell>
                             <Table.HeaderCell>Created</Table.HeaderCell>
-                            <Table.HeaderCell>Ações</Table.HeaderCell>
+                            <Table.HeaderCell textAlign='center'  >Ações</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
