@@ -1,6 +1,6 @@
 # Dev Running
 
-Gerenciador de corridas, que permite a criação de contas de adminitrador ou usuário, utiliza o [JSON Web Token](https://jwt.io/) para autenticação das páginas. Objetivo desta aplicação é explorar alguns conceitos no desenvolvimento do react JS.
+Gerenciador de corridas, que permite a criação de contas de adminitrador ou usuário, utiliza o [JSON Web Token](https://jwt.io/) para autenticação das páginas. Objetivo desta aplicação é explorar alguns conceitos no desenvolvimento do React JS.
 
 # Algumas das tecnologias envolvidas
 
